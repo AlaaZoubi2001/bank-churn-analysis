@@ -9,18 +9,6 @@
  
 ---
  
-## Table of Contents
- 
-1. [Project Purpose](#project-purpose)
-2. [About the Data](#about-the-data)
-3. [Tools Used](#tools-used)
-4. [Target Audience & Role](#target-audience--role)
-5. [Business Problem](#business-problem)
-6. [Dashboard Explanation](#dashboard-explanation)
-7. [Key Insights](#key-insights)
-8. [Project Files](#project-files)
----
- 
 ## Project Purpose
  
 The purpose of this project is to analyze customer churn behavior in a credit card service and provide the **Churn Customer Analysis Manager** with actionable insights to:
@@ -256,9 +244,3 @@ The dashboard is designed to answer business questions in a logical sequence, te
 | `CreditCardCustomers.ipynb` | Python notebook for data exploration |
 | `README.md` | Project documentation |
  
----
- 
-## Contact
- 
-- **GitHub:** [@AlaaZoubi2001](https://github.com/AlaaZoubi2001)
-- **LinkedIn:** [Your Profile](https://linkedin.com/in/your-profile)
