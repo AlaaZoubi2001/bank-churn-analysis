@@ -2,11 +2,6 @@
  
 > An end-to-end churn analysis project built for the Churn Customer Analysis Manager to identify at-risk customers and drive retention strategies.
  
-![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![DAX](https://img.shields.io/badge/DAX-FFCA28?style=for-the-badge)
- 
 ---
  
 ## Project Purpose
@@ -74,10 +69,7 @@ Attrited Customers:  1,627 (16.07%)
 | **Power BI Desktop** | Dashboard development and visualization |
 | **DAX** | Custom measures and calculated columns |
  
-### Why Power BI?
- 
-This is my first project using Power BI, building on my previous experience with Tableau. Power BI was chosen for its strong DAX capabilities and seamless SQL integration.
- 
+
 ---
  
 ## Target Audience & Role
