@@ -1,6 +1,6 @@
-# 🏦 Bank Customer Churn Analysis Dashboard
+# Bank Customer Churn Analysis Dashboard
  
-> **An end-to-end churn analysis project built for the Churn Customer Analysis Manager to identify at-risk customers and drive retention strategies.**
+> An end-to-end churn analysis project built for the Churn Customer Analysis Manager to identify at-risk customers and drive retention strategies.
  
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
@@ -9,31 +9,31 @@
  
 ---
  
-## 📋 Table of Contents
+## Table of Contents
  
-1. [Project Purpose](#-project-purpose)
-2. [About the Data](#-about-the-data)
-3. [Tools Used](#%EF%B8%8F-tools-used)
-4. [Target Audience & Role](#-target-audience--role)
-5. [Business Problem](#-business-problem)
-6. [Dashboard Explanation](#-dashboard-explanation)
-7. [Key Insights](#-key-insights)
-8. [Project Files](#-project-files)
+1. [Project Purpose](#project-purpose)
+2. [About the Data](#about-the-data)
+3. [Tools Used](#tools-used)
+4. [Target Audience & Role](#target-audience--role)
+5. [Business Problem](#business-problem)
+6. [Dashboard Explanation](#dashboard-explanation)
+7. [Key Insights](#key-insights)
+8. [Project Files](#project-files)
 ---
  
-## 🎯 Project Purpose
+## Project Purpose
  
-The purpose of this project is to **analyze customer churn behavior** in a credit card service and provide the **Churn Customer Analysis Manager** with actionable insights to:
+The purpose of this project is to analyze customer churn behavior in a credit card service and provide the **Churn Customer Analysis Manager** with actionable insights to:
  
-- Identify **why** customers are leaving the bank
-- Detect **which segments** are at highest risk
-- Quantify the **financial impact** of customer attrition
-- Recommend **data-driven retention strategies**
+- Identify why customers are leaving the bank
+- Detect which segments are at highest risk
+- Quantify the financial impact of customer attrition
+- Recommend data-driven retention strategies
 This dashboard transforms raw banking data into a clear, visual story that supports strategic decision-making at the executive level.
  
 ---
  
-## 📊 About the Data
+## About the Data
  
 **Dataset Source:** [Credit Card Customers - Kaggle](https://www.kaggle.com/datasets/sakshigoyal7/credit-card-customers)
 **Total Customers:** 10,127
@@ -45,7 +45,7 @@ This dashboard transforms raw banking data into a clear, visual story that suppo
 | Column Name | Description |
 |:-|:-|
 | `CLIENTNUM` | Unique customer identifier |
-| `Attrition_Flag` | **Target variable** — "Existing Customer" or "Attrited Customer" |
+| `Attrition_Flag` | Target variable — "Existing Customer" or "Attrited Customer" |
 | `Customer_Age` | Age of the customer in years |
 | `Gender` | Customer gender (M / F) |
 | `Dependent_count` | Number of dependents the customer has |
@@ -76,7 +76,7 @@ Attrited Customers:  1,627 (16.07%)
  
 ---
  
-## 🛠️ Tools Used
+## Tools Used
  
 | Tool | Purpose |
 |:-|:-|
@@ -87,14 +87,12 @@ Attrited Customers:  1,627 (16.07%)
 | **DAX** | Custom measures and calculated columns |
  
 ### Why Power BI?
-This is my **first project using Power BI**. Although I have prior experience with Tableau, I chose Power BI for this project because of its:
-- Strong integration with SQL databases
-- Powerful DAX language for advanced calculations
-- Industry-standard tool in banking and finance
-- Excellent storytelling and interactive capabilities
+ 
+This is my first project using Power BI, building on my previous experience with Tableau. Power BI was chosen for its strong DAX capabilities and seamless SQL integration.
+ 
 ---
  
-## 👤 Target Audience & Role
+## Target Audience & Role
  
 ### Primary Audience:
 **Churn Customer Analysis Manager** — responsible for monitoring customer attrition, identifying at-risk segments, and implementing retention strategies.
@@ -105,14 +103,9 @@ This is my **first project using Power BI**. Although I have prior experience wi
 - Identifying patterns and behavioral drivers of churn
 - Building an executive dashboard in Power BI
 - Translating data findings into actionable business recommendations
-### How the Manager Will Use This Dashboard:
-1. **Daily monitoring** of churn KPIs and revenue at risk
-2. **Weekly review** of at-risk customer segments
-3. **Monthly planning** of retention campaigns based on insights
-4. **Quarterly reporting** to executive leadership
 ---
  
-## 💼 Business Problem
+## Business Problem
  
 The bank is experiencing customer attrition at a rate of **16.07%**, leading to significant revenue loss. The Churn Customer Analysis Manager needs to answer five critical questions:
  
@@ -129,7 +122,7 @@ The bank is experiencing customer attrition at a rate of **16.07%**, leading to 
 - **% of Total Transaction Volume Lost:** 11.29%
 ---
  
-## 📊 Dashboard Explanation
+## Dashboard Explanation
  
 ![Churn Analysis Dashboard](dashboard_preview.png)
  
@@ -137,7 +130,7 @@ The bank is experiencing customer attrition at a rate of **16.07%**, leading to 
  
 The dashboard is designed to answer business questions in a logical sequence, telling a complete story in under 90 seconds.
  
-#### 🔢 Layer 1: Executive KPIs (Top Row)
+#### Layer 1: Executive KPIs (Top Row)
 **Purpose:** Give the manager the big picture in 5 seconds
  
 - **Total Customers:** 10,127 (overall portfolio size)
@@ -148,103 +141,97 @@ The dashboard is designed to answer business questions in a logical sequence, te
 - **Avg Transaction Amount Churned:** $3,095
 - **Avg Months Inactive:** 2.69
 - **Avg Trans Count:** 44.93
----
- 
-#### ⏰ Layer 2: Timeline & Behavior Analysis (Middle Row)
-**Purpose:** Show WHEN and HOW customers behave before leaving
+#### Layer 2: Timeline & Behavior Analysis (Middle Row)
+**Purpose:** Show when and how customers behave before leaving
  
 - **Churn Rate by Months Inactive:** Line chart showing when customers are most likely to leave
 - **Churned vs Retained: Behavior Gap:** Table comparing key metrics between the two groups
----
- 
-#### 🛍️ Layer 3: Customer Engagement (Middle-Right)
-**Purpose:** Show WHY customers leave based on their engagement level
+#### Layer 3: Customer Engagement
+**Purpose:** Show why customers leave based on their engagement level
  
 - **Churn Rate by Customer Relationships:** Bar chart showing how many bank services a customer has and its impact on churn
----
- 
-#### 👥 Layer 4: Demographics Segmentation (Bottom Row)
-**Purpose:** Identify WHO is at highest risk
+#### Layer 4: Demographics Segmentation (Bottom Row)
+**Purpose:** Identify who is at highest risk
  
 - **Card Tier Risk:** Donut chart showing which card categories churn most
 - **Age Group:** Horizontal bar chart showing age-based risk patterns
 - **Income Category:** Column chart showing income-based risk patterns
 ---
  
-## 💡 Key Insights
+## Key Insights
  
-### 🚨 Insight #1: Inactivity is a Strong Churn Predictor
+### Insight #1: Inactivity is a Strong Churn Predictor
  
 | Months Inactive | Churn Rate |
 |:-:|:-:|
-| 1 month | 4.48% ✅ |
+| 1 month | 4.48% |
 | 2 months | 15.39% |
-| 3 months | 21.48% 🟠 |
-| **4 months** | **29.89%** 🔴 |
+| 3 months | 21.48% |
+| **4 months** | **29.89%** |
 | 5 months | 17.98% |
 | 6 months | 15.32% |
  
-> **Finding:** Customers with **4 months of inactivity** show the highest churn rate (29.89%). This creates a clear **early warning window** for proactive retention.
+> **Finding:** Customers with **4 months of inactivity** show the highest churn rate (29.89%). This creates a clear early warning window for proactive retention.
  
 ---
  
-### 🛍️ Insight #2: More Relationships = Higher Retention
+### Insight #2: More Relationships = Higher Retention
  
 | Number of Relationships | Churn Rate |
 |:-:|:-:|
-| 1 relationship | 25.60% 🔴 |
-| 2 relationships | 27.84% 🔴 |
+| 1 relationship | 25.60% |
+| 2 relationships | 27.84% |
 | 3 relationships | 17.35% |
 | 4 relationships | 11.77% |
 | 5 relationships | 12.00% |
-| 6 relationships | 10.50% ✅ |
+| 6 relationships | 10.50% |
  
 > **Finding:** Customers with 1-2 banking relationships are **2.6x more likely to churn** than customers with 6 relationships.
  
 ---
  
-### 💳 Insight #3: The VIP Paradox
+### Insight #3: The VIP Paradox
  
 | Card Tier | Churn Rate |
 |:-|:-:|
-| **Platinum** | **25.00%** 🔴 |
+| **Platinum** | **25.00%** |
 | Gold | 18.10% |
 | Blue | 16.10% |
 | Silver | 14.77% |
  
-> **Finding:** The most valuable customer segment (Platinum) has the **highest churn rate** — a counter-intuitive but critical finding.
+> **Finding:** The most valuable customer segment (Platinum) has the highest churn rate — a counter-intuitive but critical finding.
  
 ---
  
-### 👥 Insight #4: Peak Risk Age Group (40-59)
+### Insight #4: Peak Risk Age Group (40-59)
  
 | Age Group | Churn Rate |
 |:-|:-:|
 | Under 30 | 8.72% |
 | 30-39 | 14.18% |
-| **40-49** | **16.93%** 🔴 |
-| **50-59** | **16.88%** 🔴 |
+| **40-49** | **16.93%** |
+| **50-59** | **16.88%** |
 | 60+ | 13.35% |
  
 > **Finding:** The 40-59 age group is most at-risk — these customers are in their peak financial years with complex banking needs.
  
 ---
  
-### 💰 Insight #5: Income Risk Pattern (U-Shape)
+### Insight #5: Income Risk Pattern (U-Shape)
  
 | Income Category | Churn Rate |
 |:-|:-:|
-| **Less than $40K** | **17.19%** 🔴 |
+| **Less than $40K** | **17.19%** |
 | $40K - $60K | 15.14% |
-| $60K - $80K | 13.48% ✅ |
+| $60K - $80K | 13.48% |
 | $80K - $120K | 15.77% |
-| **$120K+** | **17.33%** 🔴 |
+| **$120K+** | **17.33%** |
  
 > **Finding:** Both the lowest and highest income segments show the highest churn — a U-shape pattern with different drivers for each end.
  
 ---
  
-### 📊 Insight #6: Behavioral Gap (Churned vs Retained)
+### Insight #6: Behavioral Gap (Churned vs Retained)
  
 | Metric | Churned | Retained | Gap |
 |:-|:-:|:-:|:-:|
@@ -257,7 +244,7 @@ The dashboard is designed to answer business questions in a logical sequence, te
  
 ---
  
-## 📁 Project Files
+## Project Files
  
 | File | Description |
 |:-|:-|
@@ -271,24 +258,7 @@ The dashboard is designed to answer business questions in a logical sequence, te
  
 ---
  
-## 🚀 How to Use
+## Contact
  
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/AlaaZoubi2001/bank-churn-analysis.git
-   ```
- 
-2. **Open the dashboard:**
-   - Open `Dashbord_ChurnCustomer.pbix` with Power BI Desktop (free)
-3. **Explore SQL queries:**
-   - Open `SQL.txt` to see all analytical queries
-4. **View Python analysis:**
-   - Open `CreditCardCustomers.ipynb` in Google Colab or Jupyter
----
- 
-## 📚 Lessons Learned
- 
-1. **Behavior > Demographics:** Inactivity and engagement patterns are stronger predictors than demographic features alone.
-2. **Less is More:** Removing low-value charts made insights clearer.
-3. **Color is a Language:** A constrained 4-color palette tells the story better than rainbow visualizations.
-4. **Story-First Design:** Dashboards should answer business questions in a logical sequence.
+- **GitHub:** [@AlaaZoubi2001](https://github.com/AlaaZoubi2001)
+- **LinkedIn:** [Your Profile](https://linkedin.com/in/your-profile)
