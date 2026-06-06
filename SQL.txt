@@ -1,0 +1,390 @@
+-- BANK CUSTOMER CHURN ANALYSIS - SQL QUERIES
+-- ============================================================
+-- SECTION 1: DATA CLEANING & PREPARATION
+-- ============================================================
+ 
+-- 1.1 Replace 'Unknown' values with NULL for cleaner analysis
+-- (Education_Level, Marital_Status, Income_Category had 'Unknown' values)
+ 
+UPDATE churncustomer
+SET Education_Level = NULL
+WHERE Education_Level = 'Unknown';
+ 
+UPDATE churncustomer
+SET Marital_Status = NULL
+WHERE Marital_Status = 'Unknown';
+ 
+UPDATE churncustomer
+SET Income_Category = NULL
+WHERE Income_Category = 'Unknown';
+ 
+ 
+-- 1.2 Check NULL values per column
+ 
+SELECT
+    SUM(CASE WHEN Education_Level IS NULL THEN 1 ELSE 0 END) AS Education_Nulls,
+    SUM(CASE WHEN Marital_Status IS NULL THEN 1 ELSE 0 END) AS Marital_Nulls,
+    SUM(CASE WHEN Income_Category IS NULL THEN 1 ELSE 0 END) AS Income_Nulls
+FROM churncustomer;
+ 
+-- ============================================================
+-- SECTION 2: BASIC STATISTICS & EXPLORATION
+-- ============================================================
+ 
+-- 2.1 Average customer age
+SELECT AVG(Customer_Age) AS avg_customer_age
+FROM churncustomer;
+ 
+ 
+-- 2.2 Average number of dependents
+SELECT AVG(Dependent_count) AS avg_dependent_count
+FROM churncustomer;
+ 
+ 
+-- 2.3 Average tenure (months on book)
+SELECT AVG(Months_on_book) AS avg_months_on_book
+FROM churncustomer;
+ 
+ 
+-- 2.4 Average number of products held (relationship count)
+SELECT AVG(Total_Relationship_Count) AS avg_total_relationship_count
+FROM churncustomer;
+ 
+ 
+-- 2.5 Average months inactive in last 12 months
+SELECT AVG(Months_Inactive_12_mon) AS avg_months_inactive
+FROM churncustomer;
+ 
+ 
+-- 2.6 Average contacts count in last 12 months
+SELECT AVG(Contacts_Count_12_mon) AS avg_contacts_count
+FROM churncustomer;
+ 
+ 
+-- ============================================================
+-- SECTION 3: CUSTOMER DISTRIBUTION ANALYSIS
+-- ============================================================
+ 
+-- 3.1 Distribution by Gender + Attrition Status
+-- Question: What is the gender distribution between churned and retained?
+ 
+SELECT
+    Gender,
+    Attrition_Flag,
+    COUNT(*) AS count_gender,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage
+FROM churncustomer
+GROUP BY Attrition_Flag, Gender;
+ 
+ 
+-- 3.2 Distribution by Card Category + Attrition Status
+ 
+SELECT
+    Card_Category,
+    Attrition_Flag,
+    COUNT(*) AS count_card,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage
+FROM churncustomer
+GROUP BY Attrition_Flag, Card_Category;
+ 
+ 
+-- 3.3 Distribution by Education Level + Attrition Status
+ 
+SELECT
+    Education_Level,
+    Attrition_Flag,
+    COUNT(*) AS count_education,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage
+FROM churncustomer
+GROUP BY Attrition_Flag, Education_Level;
+ 
+ 
+-- 3.4 Distribution by Marital Status + Attrition Status
+ 
+SELECT
+    Marital_Status,
+    Attrition_Flag,
+    COUNT(*) AS count_marital,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage
+FROM churncustomer
+GROUP BY Attrition_Flag, Marital_Status;
+ 
+ 
+-- 3.5 Distribution by Income Category + Attrition Status
+ 
+SELECT
+    Income_Category,
+    Attrition_Flag,
+    COUNT(*) AS count_income,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage
+FROM churncustomer
+GROUP BY Attrition_Flag, Income_Category;
+ 
+ 
+-- 3.6 Distribution by Dependent Count + Attrition Status
+ 
+SELECT
+    Dependent_count,
+    Attrition_Flag,
+    COUNT(*) AS count_dependents,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage
+FROM churncustomer
+GROUP BY Attrition_Flag, Dependent_count;
+ 
+-- ============================================================
+-- SECTION 4: CHURN RATE BY DEMOGRAPHICS
+-- ============================================================
+ 
+-- 4.1 Churn rate by Gender
+SELECT
+    Gender,
+    COUNT(*) AS total_customers,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 2) AS churn_pct
+FROM churncustomer
+GROUP BY Gender;
+ 
+ 
+-- 4.2 Churn rate by Card Category (KEY: Platinum = 25% churn!)
+SELECT
+    Card_Category,
+    COUNT(*) AS total_customers,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 2) AS churn_pct
+FROM churncustomer
+GROUP BY Card_Category
+ORDER BY churn_pct DESC;
+ 
+ 
+-- 4.3 Churn rate by Education Level
+SELECT
+    Education_Level,
+    COUNT(*) AS count,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 2) AS churn_pct
+FROM churncustomer
+GROUP BY Education_Level;
+ 
+ 
+-- 4.4 Churn rate by Marital Status
+SELECT
+    Marital_Status,
+    COUNT(*) AS count,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 2) AS churn_pct
+FROM churncustomer
+GROUP BY Marital_Status;
+ 
+ 
+-- 4.5 Churn rate by Income Category (KEY: U-shape pattern!)
+SELECT
+    Income_Category,
+    COUNT(*) AS count,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 2) AS churn_pct
+FROM churncustomer
+GROUP BY Income_Category;
+ 
+ 
+-- 4.6 Churn rate by Dependent Count
+SELECT
+    Dependent_count,
+    COUNT(*) AS count,
+    ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 2) AS churn_pct
+FROM churncustomer
+GROUP BY Dependent_count;
+ 
+ 
+-- ============================================================
+-- SECTION 5: TENURE ANALYSIS
+-- ============================================================
+ 
+-- 5.1 Customer distribution by tenure groups
+SELECT
+    CASE
+        WHEN cc.Months_on_book < 12 THEN '0-12 months'
+        WHEN cc.Months_on_book BETWEEN 12 AND 24 THEN '12-24 months'
+        WHEN cc.Months_on_book BETWEEN 24 AND 36 THEN '24-36 months'
+        WHEN cc.Months_on_book BETWEEN 36 AND 48 THEN '36-48 months'
+        ELSE '+48 months'
+    END AS tenure_group,
+    COUNT(*) AS totalCustomer,
+    Attrition_Flag
+FROM churncustomer cc
+GROUP BY tenure_group, Attrition_Flag;
+ 
+ 
+-- 5.2 Churn rate by tenure group
+SELECT
+    CASE
+        WHEN cc.Months_on_book < 12 THEN '0-12 months'
+        WHEN cc.Months_on_book BETWEEN 12 AND 24 THEN '12-24 months'
+        WHEN cc.Months_on_book BETWEEN 24 AND 36 THEN '24-36 months'
+        WHEN cc.Months_on_book BETWEEN 36 AND 48 THEN '36-48 months'
+        ELSE '+48 months'
+    END AS tenure_group,
+    COUNT(*) AS totalCustomer,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_pct
+FROM churncustomer cc
+GROUP BY tenure_group;
+ 
+ 
+-- ============================================================
+-- SECTION 6: ADVANCED STATISTICS (Dependent Count Deep Dive)
+-- ============================================================
+ 
+-- 6.1 Dependent count statistics by Attrition Flag
+SELECT
+    COUNT(*) AS total_customer,
+    Attrition_Flag,
+    SUM(Dependent_count) AS sum,
+    MIN(Dependent_count) AS minimum,
+    MAX(Dependent_count) AS maximum,
+    AVG(Dependent_count) AS mean,
+    STD(Dependent_count) AS std_dev
+FROM churncustomer
+GROUP BY Attrition_Flag;
+ 
+ 
+-- 6.2 Dependent count statistics by Attrition Flag + Gender
+SELECT
+    COUNT(*) AS total_customer,
+    Attrition_Flag,
+    Gender,
+    SUM(Dependent_count) AS sum,
+    MIN(Dependent_count) AS minimum,
+    MAX(Dependent_count) AS maximum,
+    AVG(Dependent_count) AS mean,
+    STD(Dependent_count) AS std_dev
+FROM churncustomer
+GROUP BY Attrition_Flag, Gender;
+ 
+ 
+-- 6.3 Dependent count statistics by Attrition Flag + Income
+SELECT
+    COUNT(*) AS total_customer,
+    Attrition_Flag,
+    Income_Category,
+    SUM(Dependent_count) AS sum,
+    MIN(Dependent_count) AS minimum,
+    MAX(Dependent_count) AS maximum,
+    AVG(Dependent_count) AS mean,
+    STD(Dependent_count) AS std_dev
+FROM churncustomer
+GROUP BY Attrition_Flag, Income_Category
+ORDER BY mean DESC;
+ 
+ 
+-- ============================================================
+-- SECTION 7: ATTRITED CUSTOMERS DEEP DIVE
+-- ============================================================
+ 
+-- 7.1 Income statistics for ATTRITED customers only
+SELECT
+    COUNT(*) AS total_customer,
+    Income_Category,
+    SUM(Dependent_count) AS sum,
+    AVG(Dependent_count) AS mean,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_pct
+FROM churncustomer
+WHERE Attrition_Flag = 'Attrited Customer'
+GROUP BY Income_Category
+ORDER BY mean DESC;
+ 
+ 
+-- 7.2 Relationship count analysis for ATTRITED customers
+-- KEY FINDING: 1-2 products = highest churn!
+SELECT
+    COUNT(*) AS total_customer,
+    Total_Relationship_Count,
+    AVG(Total_Relationship_Count) AS mean,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_pct
+FROM churncustomer
+GROUP BY Total_Relationship_Count
+ORDER BY mean DESC;
+ 
+ 
+-- 7.3 Months on book analysis for tenure 24-36 months (highest density)
+SELECT
+    COUNT(*) AS count,
+    Months_on_book,
+    Gender,
+    Card_Category,
+    Income_Category,
+    Dependent_count,
+    SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) AS churned,
+    ROUND(100.0 * SUM(CASE WHEN Attrition_Flag = 'Attrited Customer' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_pct
+FROM churncustomer
+WHERE Months_on_book BETWEEN 24 AND 36
+GROUP BY Months_on_book
+ORDER BY churn_pct DESC;
+ 
+ 
+-- 7.4 Female attrition analysis (tenure 24-36, all categories)
+SELECT
+    COUNT(*) AS count,
+    Months_on_book,
+    Card_Category,
+    Income_Category,
+    Dependent_count,
+    Education_Level,
+    Marital_Status,
+    SUM(CASE WHEN Gender = 'F' THEN 1 ELSE 0 END) AS churned_Female,
+    ROUND(100.0 * SUM(CASE WHEN Gender = 'F' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_Female_pct
+FROM churncustomer
+WHERE Months_on_book BETWEEN 24 AND 36
+    AND Attrition_Flag = 'Attrited Customer'
+GROUP BY Months_on_book
+ORDER BY churn_Female_pct DESC;
+ 
+ 
+-- 7.5 Female attrition with Credit Limit (Blue card focus)
+SELECT
+    COUNT(*) AS count,
+    Months_on_book,
+    Income_Category,
+    Months_Inactive_12_mon,
+    Dependent_count,
+    Education_Level,
+    Marital_Status,
+    Credit_Limit,
+    SUM(CASE WHEN Gender = 'F' THEN 1 ELSE 0 END) AS churned_Female,
+    ROUND(100.0 * SUM(CASE WHEN Gender = 'F' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_Female_pct
+FROM churncustomer
+WHERE Months_on_book BETWEEN 24 AND 36
+    AND Attrition_Flag = 'Attrited Customer'
+    AND Card_Category = 'Blue'
+GROUP BY Months_on_book
+ORDER BY churned_Female DESC
+LIMIT 5;
+ 
+ 
+-- 7.6 Female attrition with Contacts Count (engagement signal)
+SELECT
+    COUNT(*) AS count,
+    Months_on_book,
+    Income_Category,
+    Months_Inactive_12_mon,
+    Contacts_Count_12_mon,
+    Dependent_count,
+    Education_Level,
+    Marital_Status,
+    Credit_Limit,
+    SUM(CASE WHEN Gender = 'F' THEN 1 ELSE 0 END) AS churned_Female,
+    ROUND(100.0 * SUM(CASE WHEN Gender = 'F' THEN 1 ELSE 0 END) / COUNT(*), 1) AS churn_Female_pct
+FROM churncustomer
+WHERE Months_on_book BETWEEN 24 AND 36
+    AND Attrition_Flag = 'Attrited Customer'
+    AND Card_Category = 'Blue'
+GROUP BY Months_on_book
+ORDER BY churned_Female DESC
+LIMIT 5;
+
